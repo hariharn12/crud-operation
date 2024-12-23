@@ -1,0 +1,32 @@
+<button type="button" class="btn btn-primary p-2" routerLink="create-employee">Create Employee</button>
+
+<!-- get employee by all -->
+<table>
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>title</th>
+            <th>body</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (item of emplist; track item.id) {
+        <tr>
+            <td>{{item.id}}</td>
+            <td>{{item.title}}</td>
+            <td>{{item.body}}</td>
+        </tr>
+
+        }
+    </tbody>
+</table>
+<!-- get employee by id -->
+
+@if(empid){
+    {{empid.id}}
+    <br>
+    {{empid.title}}
+    <br>
+    {{empid.body}}
+}
