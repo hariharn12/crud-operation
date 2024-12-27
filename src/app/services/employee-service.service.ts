@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { Employeelist } from '../employee-list/employee-list.component';
 
@@ -7,12 +7,13 @@ import { Employeelist } from '../employee-list/employee-list.component';
   providedIn: 'root',
 })
 export class EmployeeServiceService {
-  constructor(private http: HttpClient) {}
+  #http = inject(HttpClient);
+  constructor() {}
 
   // get api all
   getemployee() {
     return lastValueFrom(
-      this.http.get<Employeelist[]>(
+      this.#http.get<Employeelist[]>(
         'https://jsonplaceholder.typicode.com/posts'
       )
     );
@@ -20,11 +21,13 @@ export class EmployeeServiceService {
   // get api by id
   getemployeebyid(id: number) {
     return lastValueFrom(
-      this.http.get(`https://jsonplaceholder.typicode.com/posts/${id}`)
+      this.#http.get(`https://jsonplaceholder.typicode.com/posts/${id}`)
     );
   }
 
-  CreateEmployee(data:any){
-    return lastValueFrom(this.http.post('https://jsonplaceholder.typicode.com/posts', data))
+  CreateEmployee(data: any) {
+    return lastValueFrom(
+      this.#http.post('https://jsonplaceholder.typicode.com/posts', data)
+    );
   }
 }

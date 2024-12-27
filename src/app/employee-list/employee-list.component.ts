@@ -12,15 +12,16 @@ export interface Employeelist {
 @Component({
   selector: 'app-employee-list',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css',
 })
 export class EmployeeListComponent implements OnInit {
   emplist: Employeelist[] = [];
-  empid:any
+  empid: any;
+  employelist = inject(EmployeeServiceService);
 
-  constructor(private employelist: EmployeeServiceService) {}
+  constructor() {}
 
   async Getemployee() {
     try {
@@ -32,20 +33,17 @@ export class EmployeeListComponent implements OnInit {
     }
   }
 
-  async getemployeebyid(){
+  async getemployeebyid() {
     try {
-      this.empid= await this.employelist.getemployeebyid(5);
+      this.empid = await this.employelist.getemployeebyid(5);
       console.log(this.empid);
-      
     } catch (error) {
       console.error(error);
     }
-    
-    
   }
 
   ngOnInit(): void {
     this.Getemployee();
-    this.getemployeebyid()
+    this.getemployeebyid();
   }
 }
